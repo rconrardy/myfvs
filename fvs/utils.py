@@ -13,12 +13,11 @@ def resize(frame, size, type):
         frame = cv2.resize(frame, size, interpolation=cv2.INTER_CUBIC)
     elif type=="lanczos":
         frame = cv2.resize(frame, size, interpolation=cv2.INTER_LANCZOS4)
-    elif type=="random":
-        frame = randomResize(frame, size)
+    elif type=="subsampling":
+        frame = subsampling(frame, size)
     return frame
 
-# subsampling
-def randomResize(frame, size):
+def subsampling(frame, size):
     height, width, channels = frame.shape
     count = numpy.array([height / size[0], width / size[1]])
     ret_rows = numpy.array([0, count[0]])

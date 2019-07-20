@@ -1,6 +1,7 @@
 class System():
     def __init__(self, *args, **kwargs):
         self.devices = {}
+        self.functions = {}
 
     def __repr__(self):
         devices = ', '.join(str(key) for key in self.devices.keys())

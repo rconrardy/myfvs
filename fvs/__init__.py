@@ -5,6 +5,8 @@ from .region import Region
 
 from .utils import fps
 from .utils import resize
-from .utils import randomResize
+
+from .functions import haarFaceDetectSetup
+from .functions import haarFaceDetectFunction
 
 from .application import Application

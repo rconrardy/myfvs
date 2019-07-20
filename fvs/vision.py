@@ -10,6 +10,9 @@ class Vision():
         self.offset = (self.size//2) * self.ratio
         self.frames = {"curr": None}
 
+        self.models = {}
+        self.functions = []
+
     def __repr__(self):
         frames = ', '.join(str(key) for key in self.frames.keys())
         return '{}({})'.format(type(self), frames)
@@ -26,9 +29,14 @@ class Vision():
     def __iter__(self):
         return iter(self.frames.items())
 
+    def function(self, setup, funct):
+        setup(self)
+        self.functions.append(funct)
+
     def update(self, original, focalpoint, width, height, channels):
         frame = original[
             focalpoint[1]-self.offset:focalpoint[1]+self.offset,
             focalpoint[0]-self.offset:focalpoint[0]+self.offset]
         self.frames["curr"] = fvs.resize(frame, (self.size, self.size), self.resize)
+        results = [f(self, original) for f in self.functions]
         return self.frames["curr"]
